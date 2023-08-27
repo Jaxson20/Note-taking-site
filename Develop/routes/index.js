@@ -10,11 +10,11 @@ app.use(express.json());
 app.use(express.static('public'));
 //landing page
 app.get('/', (req,res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'))
+    res.sendFile(path.join(__dirname, '..',  'public', 'index.html'))
 });
 //notes route
 app.get('/notes', (req,res) => {
-    res.sendFile(path.join(__dirname, 'public', 'notes.html'))
+    res.sendFile(path.join(__dirname, '..', 'public', 'notes.html'))
 });
 
 //starting server:)
