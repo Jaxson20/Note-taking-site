@@ -1,25 +1,34 @@
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const path = require('path'); // Import the 'path' module
+const port = process.env.PORT || 3000;
 
-// Serve static files from the 'public' directory
+// Middleware to serve static files from the "public" directory
 app.use(express.static('public'));
 
-// Define your API routes for handling notes
-app.get('/api/notes', (req, res) => {
-    // Implement logic to get notes from a database or data source
-    // Return the notes as JSON
-    const notes = [
-        // Example note objects
-        { id: 1, title: "Note 1", text: "This is the first note." },
-        { id: 2, title: "Note 2", text: "This is the second note." }
-    ];
+// Middleware to parse JSON requests
+app.use(express.json());
 
-    res.json(notes);
+// Sample in-memory database for storing notes
+const notes = [];
+
+// Route handler for the root URL ("/")
+app.get('/', (req, res) => {
+  // Send the index.html file as the response
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html')); // Use 'path.join' to construct the file path
 });
 
-// Implement POST and DELETE routes for adding and deleting notes
+// Route handler for the notes page ("/notes")
+app.get('/notes', (req, res) => {
+  // Send the notes.html file as the response
+  res.sendFile(path.join(__dirname, '..', 'public', 'notes.html')); // Use 'path.join' to construct the file path
+});
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+// Define your other routes and route handlers here
+// For example:
+// app.get('/api/notes', (req, res) => { ... });
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
